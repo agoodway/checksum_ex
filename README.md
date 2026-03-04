@@ -4,12 +4,24 @@ Elixir client for the Checksum API. Typed structs and API functions generated at
 
 ## Installation
 
-Add `checksum_ex` to your dependencies in `mix.exs`:
+Add `checksum_ex` to your dependencies in `mix.exs`.
+
+From Hex:
 
 ```elixir
 def deps do
   [
     {:checksum_ex, "~> 0.1.0"}
+  ]
+end
+```
+
+From GitHub `main` (latest unreleased changes):
+
+```elixir
+def deps do
+  [
+    {:checksum_ex, github: "agoodway/checksum_ex", branch: "main"}
   ]
 end
 ```
