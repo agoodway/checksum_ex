@@ -1,0 +1,1329 @@
+{
+  "components": {
+    "responses": {},
+    "schemas": {
+      "AnchorListResponse": {
+        "description": "Paginated list of anchors",
+        "properties": {
+          "data": {
+            "items": {
+              "properties": {
+                "anchored_at": {
+                  "format": "date-time",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "chain_id": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "checksum": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "sequence_number": {
+                  "type": "integer",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "signature": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "signing_key_id": {
+                  "format": "uuid",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "pagination": {
+            "properties": {
+              "has_more": {
+                "type": "boolean",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "next_cursor": {
+                "nullable": true,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "title": "AnchorListResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.AnchorController.AnchorListResponse",
+        "x-validate": null
+      },
+      "AnchorParams": {
+        "description": "Parameters for creating an anchor",
+        "properties": {
+          "chain_id": {
+            "description": "Identifier for the audit chain",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "checksum": {
+            "description": "SHA-256 hex digest of the checkpoint data",
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "sequence_number": {
+            "description": "Monotonically increasing sequence within the chain",
+            "minimum": 0,
+            "type": "integer",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "chain_id",
+          "sequence_number",
+          "checksum"
+        ],
+        "title": "AnchorParams",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.AnchorController.AnchorParams",
+        "x-validate": null
+      },
+      "AnchorResponse": {
+        "description": "A single anchor record",
+        "properties": {
+          "data": {
+            "properties": {
+              "anchored_at": {
+                "format": "date-time",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "chain_id": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "checksum": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "sequence_number": {
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "signature": {
+                "description": "Base64-encoded Ed25519 signature",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "signing_key_id": {
+                "format": "uuid",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "id",
+              "chain_id",
+              "sequence_number",
+              "checksum",
+              "signature",
+              "signing_key_id",
+              "anchored_at"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "AnchorResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.AnchorController.AnchorResponse",
+        "x-validate": null
+      },
+      "BuildResponse": {
+        "description": "Tree build result",
+        "properties": {
+          "data": {
+            "properties": {
+              "message": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "title": "BuildResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.TreeController.BuildResponse",
+        "x-validate": null
+      },
+      "Error": {
+        "example": {
+          "errors": {
+            "detail": "Not Found"
+          }
+        },
+        "properties": {
+          "errors": {
+            "properties": {
+              "detail": {
+                "description": "Error message",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "detail"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "errors"
+        ],
+        "title": "Error",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.ErrorJSON",
+        "x-validate": null
+      },
+      "ProofResponse": {
+        "description": "Merkle inclusion proof",
+        "properties": {
+          "data": {
+            "properties": {
+              "leaf_hash": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "proof": {
+                "items": {
+                  "properties": {
+                    "direction": {
+                      "description": "Position of this sibling relative to the path node",
+                      "enum": [
+                        "left",
+                        "right"
+                      ],
+                      "type": "string",
+                      "x-struct": null,
+                      "x-validate": null
+                    },
+                    "hash": {
+                      "description": "Sibling hash",
+                      "type": "string",
+                      "x-struct": null,
+                      "x-validate": null
+                    }
+                  },
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "type": "array",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "root_hash": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "proof",
+              "root_hash",
+              "leaf_hash"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "ProofResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.TreeController.ProofResponse",
+        "x-validate": null
+      },
+      "TreeListResponse": {
+        "description": "Paginated list of Merkle trees",
+        "properties": {
+          "data": {
+            "items": {
+              "properties": {
+                "anchor_count": {
+                  "type": "integer",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "period_end": {
+                  "format": "date-time",
+                  "nullable": true,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "period_start": {
+                  "format": "date-time",
+                  "nullable": true,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "previous_root_hash": {
+                  "nullable": true,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "published_at": {
+                  "format": "date-time",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "root_hash": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "pagination": {
+            "properties": {
+              "has_more": {
+                "type": "boolean",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "next_cursor": {
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "title": "TreeListResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.TreeController.TreeListResponse",
+        "x-validate": null
+      },
+      "TreeResponse": {
+        "description": "A single Merkle tree record",
+        "properties": {
+          "data": {
+            "properties": {
+              "anchor_count": {
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "period_end": {
+                "format": "date-time",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "period_start": {
+                "format": "date-time",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "previous_root_hash": {
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "published_at": {
+                "format": "date-time",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "root_hash": {
+                "description": "Hex-encoded SHA-256 root hash",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "id",
+              "root_hash",
+              "anchor_count",
+              "published_at"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "TreeResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.TreeController.TreeResponse",
+        "x-validate": null
+      },
+      "ValidationError": {
+        "example": {
+          "errors": {
+            "name": [
+              "can't be blank"
+            ]
+          }
+        },
+        "properties": {
+          "errors": {
+            "additionalProperties": {
+              "items": {
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "type": "array",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "description": "Object with field names as keys and lists of error messages as values",
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "errors"
+        ],
+        "title": "ValidationError",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.ChangesetJSON",
+        "x-validate": null
+      },
+      "VerificationResponse": {
+        "description": "Verification result",
+        "properties": {
+          "data": {
+            "properties": {
+              "anchor": {
+                "properties": {
+                  "anchored_at": {
+                    "format": "date-time",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "chain_id": {
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "checksum": {
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "sequence_number": {
+                    "type": "integer",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "signature": {
+                    "description": "Base64-encoded Ed25519 signature",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "signing_key_id": {
+                    "format": "uuid",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "id",
+                  "chain_id",
+                  "sequence_number",
+                  "checksum",
+                  "signature",
+                  "signing_key_id",
+                  "anchored_at"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "key_revoked": {
+                "description": "Only present when true; indicates the signing key has been revoked and valid will be false",
+                "type": "boolean",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "match": {
+                "description": "Only present for coordinate-based verification; true if submitted checksum equals stored",
+                "type": "boolean",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "valid": {
+                "description": "true if the stored signature passes Ed25519 verification and the signing key is not revoked",
+                "type": "boolean",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "valid",
+              "anchor"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "VerificationResponse",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.VerificationController.VerificationResponse",
+        "x-validate": null
+      },
+      "VerifyParams": {
+        "description": "Verification request body. Supply either `anchor_id` to verify by ID, or `chain_id` + `sequence_number` + `checksum` to verify by chain coordinates.",
+        "properties": {
+          "anchor_id": {
+            "description": "Anchor ID to verify (mutually exclusive with coordinate fields)",
+            "format": "uuid",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "chain_id": {
+            "description": "Chain identifier (required for coordinate-based verification)",
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "^[\\w\\-.:/]+$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "checksum": {
+            "description": "SHA-256 hex digest to compare against the stored anchor",
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "sequence_number": {
+            "description": "Sequence number within the chain",
+            "minimum": 0,
+            "type": "integer",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "title": "VerifyParams",
+        "type": "object",
+        "x-struct": "Elixir.CheckWeb.Api.V1.VerificationController.VerifyParams",
+        "x-validate": null
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "API Key",
+        "description": "Enter your API key: `pk_...` (read-only) or `sk_...` (read/write)\n",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "The Check API.\n\n## Authentication\nAll API endpoints require authentication using API keys.\n\n### API Key Types\n- **Public Keys** (`pk_...`): Read-only access\n- **Private Keys** (`sk_...`): Full read/write access\n\n### How to Authenticate\n1. Log in to your account and create an API key\n2. Click the \"Authorize\" button in Swagger UI\n3. Enter your API key: `Bearer <your_api_key>`\n\nAll requests must include the `Authorization` header.\n\n### Multi-tenant Access\nAPI keys are scoped to your membership in a specific account.\nTo access multiple accounts, create separate API keys for each.\n",
+    "title": "Check API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/.well-known/checksum-dev.json": {
+      "get": {
+        "callbacks": {},
+        "description": "Returns all signing keys in RFC 8037 JWK format (including rotated and revoked) for the account resolved from the API key. Used for offline receipt verification and key lifecycle auditing.",
+        "operationId": "WellKnown.show",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "keys": {
+                      "items": {
+                        "properties": {
+                          "crv": {
+                            "example": "Ed25519",
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "key_ops": {
+                            "items": {
+                              "type": "string",
+                              "x-struct": null,
+                              "x-validate": null
+                            },
+                            "type": "array",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "kid": {
+                            "format": "uuid",
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "kty": {
+                            "example": "OKP",
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "revoked_at": {
+                            "format": "date-time",
+                            "nullable": true,
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "status": {
+                            "enum": [
+                              "active",
+                              "rotated",
+                              "revoked",
+                              "inactive"
+                            ],
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "use": {
+                            "example": "sig",
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          },
+                          "x": {
+                            "description": "Base64url-encoded Ed25519 public key (no padding)",
+                            "type": "string",
+                            "x-struct": null,
+                            "x-validate": null
+                          }
+                        },
+                        "type": "object",
+                        "x-struct": null,
+                        "x-validate": null
+                      },
+                      "type": "array",
+                      "x-struct": null,
+                      "x-validate": null
+                    }
+                  },
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              }
+            },
+            "description": "JWKS response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Public key discovery (JWKS)",
+        "tags": []
+      }
+    },
+    "/api/v1/anchors": {
+      "get": {
+        "callbacks": {},
+        "description": "Returns anchors for a chain ordered by sequence number ascending with cursor pagination.",
+        "operationId": "Anchor.index",
+        "parameters": [
+          {
+            "description": "Chain identifier (required)",
+            "in": "query",
+            "name": "chain_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Cursor: return anchors with sequence_number > this value",
+            "in": "query",
+            "name": "after_sequence",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Max results (default 50, max 250)",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnchorListResponse"
+                }
+              }
+            },
+            "description": "Anchor list"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Missing chain_id"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List anchors for a chain",
+        "tags": []
+      },
+      "post": {
+        "callbacks": {},
+        "description": "Submit a checkpoint anchor. Signs the canonical payload with the account's active Ed25519 key and returns a verifiable receipt.",
+        "operationId": "Anchor.create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnchorParams"
+              }
+            }
+          },
+          "description": "Anchor params",
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnchorResponse"
+                }
+              }
+            },
+            "description": "Anchor created"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnchorResponse"
+                }
+              }
+            },
+            "description": "Duplicate anchor — returns the existing anchor for idempotent handling"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            },
+            "description": "Validation error"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No active signing key"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create an anchor",
+        "tags": []
+      }
+    },
+    "/api/v1/anchors/{id}": {
+      "get": {
+        "callbacks": {},
+        "description": "Retrieve a single anchor record by its ID.",
+        "operationId": "Anchor.show",
+        "parameters": [
+          {
+            "description": "Anchor ID (UUID)",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnchorResponse"
+                }
+              }
+            },
+            "description": "Anchor found"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get an anchor by ID",
+        "tags": []
+      }
+    },
+    "/api/v1/trees": {
+      "get": {
+        "callbacks": {},
+        "description": "Returns published Merkle tree roots for the account, ordered by publication time.",
+        "operationId": "Tree.index",
+        "parameters": [
+          {
+            "description": "Only trees published on or after this ISO8601 datetime",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Only trees published on or before this ISO8601 datetime",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Max results (default 50, max 250)",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Pagination cursor (published_at ISO8601)",
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TreeListResponse"
+                }
+              }
+            },
+            "description": "Tree list"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "List Merkle trees",
+        "tags": []
+      }
+    },
+    "/api/v1/trees/build": {
+      "post": {
+        "callbacks": {},
+        "description": "Enqueues a Merkle tree build for the authenticated account. Requires a private API key.",
+        "operationId": "Tree.build",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuildResponse"
+                }
+              }
+            },
+            "description": "No unprocessed anchors"
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuildResponse"
+                }
+              }
+            },
+            "description": "Build enqueued"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Trigger on-demand tree build",
+        "tags": []
+      }
+    },
+    "/api/v1/trees/{id}": {
+      "get": {
+        "callbacks": {},
+        "description": "Retrieve a single Merkle tree record by its ID.",
+        "operationId": "Tree.show",
+        "parameters": [
+          {
+            "description": "Tree ID (UUID)",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TreeResponse"
+                }
+              }
+            },
+            "description": "Tree found"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get a Merkle tree by ID",
+        "tags": []
+      }
+    },
+    "/api/v1/trees/{tree_id}/proof/{anchor_id}": {
+      "get": {
+        "callbacks": {},
+        "description": "Returns a Merkle inclusion proof for a specific anchor within a tree. For recent trees, proof data is served from the database. For older trees whose nodes have been archived and pruned, proof data is reconstructed from durable object storage. Returns 503 if archive storage is temporarily unavailable.",
+        "operationId": "Tree.proof",
+        "parameters": [
+          {
+            "description": "Tree ID (UUID)",
+            "in": "path",
+            "name": "tree_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          },
+          {
+            "description": "Anchor ID (UUID)",
+            "in": "path",
+            "name": "anchor_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProofResponse"
+                }
+              }
+            },
+            "description": "Proof found"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Anchor not in tree"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Archive temporarily unavailable"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Get inclusion proof",
+        "tags": []
+      }
+    },
+    "/api/v1/verify": {
+      "post": {
+        "callbacks": {},
+        "description": "Verify an anchor's Ed25519 signature. Supply either `anchor_id` to verify by ID, or `chain_id` + `sequence_number` + `checksum` to verify by chain coordinates and compare checksums.",
+        "operationId": "Verification.create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyParams"
+              }
+            }
+          },
+          "description": "Verification params",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            },
+            "description": "Verification result"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Anchor not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Invalid request body"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Verify an anchor receipt",
+        "tags": []
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:4000",
+      "variables": {}
+    }
+  ],
+  "tags": []
+}
